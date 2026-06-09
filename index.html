@@ -169,15 +169,7 @@ input.fill.revealed{border-bottom:2px solid var(--c6);color:var(--c6);font-style
 .reset-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--subtext);}
 .score-badge{display:none;font-weight:800;font-size:.86rem;padding:.3rem .85rem;border-radius:50px;background:rgba(255,255,255,.06);}
 
-/* VIDEOS */
-.videos-grid{display:grid;gap:1.4rem;padding:1.4rem 1rem 3rem;max-width:940px;margin:0 auto;}
-.video-card{background:var(--dark2);border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:transform .2s,box-shadow .2s;}
-.video-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3);}
-.video-embed{width:100%;aspect-ratio:16/9;border:none;}
-.video-info{padding:1rem 1.2rem;}
-.video-info h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.4rem;}
-.video-info p{color:#adbac7;font-size:.84rem;line-height:1.6;}
-.video-tag{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:1px;padding:.18rem .65rem;border-radius:50px;margin-bottom:.45rem;text-transform:uppercase;}
+
 
 footer{position:relative;z-index:10;background:var(--dark2);border-top:1px solid var(--border);text-align:center;padding:1rem 1.5rem;color:var(--subtext);font-size:.78rem;font-weight:600;line-height:1.8;}
 footer span.accent{color:var(--c1);}
@@ -211,7 +203,7 @@ footer span.dim{color:rgba(139,148,158,.4);margin:0 .4rem;}
 <nav class="main-tabs" id="mainTabs">
   <button class="main-tab active" onclick="showMain('teoria',this)">📖 TEORIA</button>
   <button class="main-tab" onclick="showMain('esercizi',this)">✏️ ESERCIZI</button>
-  <button class="main-tab" onclick="showMain('videos',this)">🎬 VIDEOS</button>
+
 </nav>
 
 <!-- ══════════ TEORIA ══════════ -->
@@ -939,67 +931,7 @@ footer span.dim{color:rgba(139,148,158,.4);margin:0 .4rem;}
   </div>
 </div><!-- fine esercizi -->
 
-<!-- VIDEOS -->
-<div id="videos" class="section-wrap">
-  <div class="videos-grid">
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/glG2QpGETt4" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(255,107,107,.2);color:var(--c0);">Pres. Perf. vs Past Simple</span>
-        <h3>Present Perfect vs Past Simple (English with Lucy)</h3>
-        <p>Spiegazione chiara delle differenze tra i due tempi, con segnali temporali ed esempi pratici.</p>
-      </div>
-    </div>
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/OkuSA2cJ0XA" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(255,195,0,.2);color:var(--c1);">Pres. Perf. Continuous</span>
-        <h3>Present Perfect Continuous (BBC Learning English)</h3>
-        <p>Durata, attività in corso e risultati visibili. Confronto con il Present Perfect Simple.</p>
-      </div>
-    </div>
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/zPNdkmPCWjQ" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(6,214,160,.2);color:var(--c2);">For &amp; Since</span>
-        <h3>FOR and SINCE (mmmEnglish)</h3>
-        <p>Differenza tra for e since con esempi visivi. Ripasso rapido prima del test.</p>
-      </div>
-    </div>
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/d1iNuGvCYP0" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(67,97,238,.2);color:#7b9fff;">Past Perfect</span>
-        <h3>Past Perfect Simple (English with Emma)</h3>
-        <p>Come usare il Past Perfect per descrivere sequenze di eventi nel passato.</p>
-      </div>
-    </div>
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/D0ynM5DlpD8" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(255,159,67,.2);color:var(--c4);">Past Perf. Continuous</span>
-        <h3>Past Perfect Continuous (Anglo-Link)</h3>
-        <p>Differenza tra Past Perfect Simple e Continuous — durata e causa nel passato.</p>
-      </div>
-    </div>
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/P2AeKJMiSO4" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(0,210,255,.2);color:var(--c5);">Used to &amp; Would</span>
-        <h3>USED TO vs WOULD for Past Habits</h3>
-        <p>Quando usare used to e quando would. Perché would non funziona con i verbi stativi.</p>
-      </div>
-    </div>
-    <div class="video-card">
-      <iframe class="video-embed" src="https://www.youtube.com/embed/RFRt6y01ayw" allowfullscreen loading="lazy"></iframe>
-      <div class="video-info">
-        <span class="video-tag" style="background:rgba(162,155,254,.2);color:var(--c6);">Be/Get Used to</span>
-        <h3>USED TO / BE USED TO / GET USED TO (mmmEnglish)</h3>
-        <p>Le tre strutture in un unico video. Fondamentale per non confonderle all&#39;esame.</p>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <footer>
   <span class="accent">Ripasso Prof. Crespi — Inglese — IIS Mendel — A.S. 25/26</span>
