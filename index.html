@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ripasso Past Tenses – Prof. Crespi | IIS Mendel</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c0:#ff6b6b; --c1:#ffc300; --c2:#06d6a0; --c3:#4361ee; --c4:#ff9f43; --c5:#00d2ff; --c6:#a29bfe;
+  --dark:#0d1117; --dark2:#161b22; --mid:#21262d;
+  --text:#e6edf3; --subtext:#8b949e; --white:#ffffff; --border:rgba(255,255,255,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+header{position:relative;z-index:10;background:linear-gradient(135deg,#0d1117,#161b22);border-bottom:1px solid var(--border);padding:2.5rem 1.5rem 1.5rem;text-align:center;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 10% 50%,rgba(255,107,107,.12),transparent 60%),radial-gradient(ellipse at 90% 50%,rgba(67,97,238,.12),transparent 60%),radial-gradient(ellipse at 50% 0%,rgba(0,210,255,.08),transparent 60%);pointer-events:none;}
+.header-badge{display:inline-block;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--subtext);font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.3rem 1rem;border-radius:50px;margin-bottom:.6rem;}
+.header-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.4rem,4vw,2.8rem);font-weight:700;line-height:1.15;position:relative;color:var(--white);}
+.header-sub-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem,3vw,1.8rem);font-weight:500;color:var(--subtext);margin-top:.3rem;}
+.h-past{background:linear-gradient(90deg,var(--c1),var(--c0));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.h-perf{background:linear-gradient(90deg,var(--c2),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{margin-top:.7rem;color:var(--subtext);font-size:.9rem;font-weight:600;}
+.pill-row{display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-top:1.1rem;}
+.pill{font-size:.75rem;font-weight:800;padding:.3rem .85rem;border-radius:50px;color:var(--dark);cursor:pointer;border:none;transition:transform .15s,filter .15s;font-family:'Nunito',sans-serif;}
+.pill:hover{transform:translateY(-2px) scale(1.06);filter:brightness(1.15);}
+.pill-0{background:var(--c0);} .pill-1{background:var(--c1);} .pill-2{background:var(--c2);}
+.pill-3{background:var(--c3);color:white;} .pill-4{background:var(--c4);}
+.pill-5{background:var(--c5);} .pill-6{background:var(--c6);color:white;}
+
+.main-tabs{position:sticky;top:0;z-index:100;display:flex;background:var(--dark2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.main-tabs::-webkit-scrollbar{display:none;}
+.main-tab{flex:1;min-width:100px;padding:.9rem 1.2rem;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;border:none;background:transparent;color:var(--subtext);cursor:pointer;transition:all .25s;border-bottom:3px solid transparent;white-space:nowrap;}
+.main-tab:hover{color:var(--text);background:rgba(255,255,255,.03);}
+.main-tab.active{color:var(--white);border-bottom-color:var(--c1);}
+
+.section-wrap{display:none;}
+.section-wrap.active{display:block;animation:fadeUp .4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.sub-tabs{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;padding:1.2rem 1rem .9rem;}
+.sub-tab{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.78rem;padding:.4rem .9rem;border-radius:50px;border:2px solid transparent;cursor:pointer;transition:all .2s;background:var(--dark2);}
+.sub-tab:hover{transform:translateY(-2px);filter:brightness(1.2);}
+.sub-tab[data-t="pps"]{border-color:var(--c0);color:var(--c0);}
+.sub-tab[data-t="ppc"]{border-color:var(--c1);color:var(--c1);}
+.sub-tab[data-t="forsince"]{border-color:var(--c2);color:var(--c2);}
+.sub-tab[data-t="ppsvps"]{border-color:var(--c3);color:#7b9fff;}
+.sub-tab[data-t="ppcont"]{border-color:var(--c4);color:var(--c4);}
+.sub-tab[data-t="usedto"]{border-color:var(--c5);color:var(--c5);}
+.sub-tab[data-t="beused"]{border-color:var(--c6);color:var(--c6);}
+.sub-tab.active[data-t="pps"]{background:var(--c0);color:var(--dark);}
+.sub-tab.active[data-t="ppc"]{background:var(--c1);color:var(--dark);}
+.sub-tab.active[data-t="forsince"]{background:var(--c2);color:var(--dark);}
+.sub-tab.active[data-t="ppsvps"]{background:var(--c3);color:white;}
+.sub-tab.active[data-t="ppcont"]{background:var(--c4);color:var(--dark);}
+.sub-tab.active[data-t="usedto"]{background:var(--c5);color:var(--dark);}
+.sub-tab.active[data-t="beused"]{background:var(--c6);color:white;}
+
+.content-panel{display:none;padding:0 1rem 3rem;max-width:940px;margin:0 auto;}
+.content-panel.active{display:block;animation:fadeUp .35s ease;}
+
+.t-hero{border-radius:20px;padding:1.8rem;margin-bottom:1.4rem;}
+.t-hero-pps{background:linear-gradient(135deg,rgba(255,107,107,.15),rgba(255,107,107,.04));border:1px solid rgba(255,107,107,.3);}
+.t-hero-ppc{background:linear-gradient(135deg,rgba(255,195,0,.15),rgba(255,195,0,.04));border:1px solid rgba(255,195,0,.3);}
+.t-hero-fs{background:linear-gradient(135deg,rgba(6,214,160,.15),rgba(6,214,160,.04));border:1px solid rgba(6,214,160,.3);}
+.t-hero-ppsvps{background:linear-gradient(135deg,rgba(67,97,238,.2),rgba(67,97,238,.04));border:1px solid rgba(67,97,238,.35);}
+.t-hero-ppcont{background:linear-gradient(135deg,rgba(255,159,67,.15),rgba(255,159,67,.04));border:1px solid rgba(255,159,67,.3);}
+.t-hero-usedto{background:linear-gradient(135deg,rgba(0,210,255,.15),rgba(0,210,255,.04));border:1px solid rgba(0,210,255,.3);}
+.t-hero-beused{background:linear-gradient(135deg,rgba(162,155,254,.15),rgba(162,155,254,.04));border:1px solid rgba(162,155,254,.3);}
+.t-hero h2{font-family:'Space Grotesk',sans-serif;font-size:1.45rem;font-weight:700;margin-bottom:.35rem;}
+.t-hero .emoji-big{font-size:2.2rem;margin-bottom:.7rem;display:block;}
+.t-hero p{color:#adbac7;line-height:1.7;font-size:.95rem;}
+
+.book-ref{display:inline-block;font-size:.72rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.08);color:var(--subtext);letter-spacing:.5px;margin-bottom:.6rem;}
+
+.formula-box{border-radius:14px;padding:1rem 1.5rem;margin:1.2rem 0;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.4rem 1rem;font-size:1rem;letter-spacing:.2px;box-shadow:0 4px 20px rgba(0,0,0,.22);}
+.formula-pps{background:rgba(255,107,107,.18);border:2.5px solid rgba(255,107,107,.7);color:#ffb3b3;}
+.formula-ppc{background:rgba(255,195,0,.18);border:2.5px solid rgba(255,195,0,.7);color:#ffe066;}
+.formula-fs{background:rgba(6,214,160,.18);border:2.5px solid rgba(6,214,160,.7);color:#5fffd8;}
+.formula-ppsvps{background:rgba(67,97,238,.22);border:2.5px solid rgba(67,97,238,.8);color:#a0b4ff;}
+.formula-ppcont{background:rgba(255,159,67,.18);border:2.5px solid rgba(255,159,67,.7);color:#ffd0a0;}
+.formula-usedto{background:rgba(0,210,255,.18);border:2.5px solid rgba(0,210,255,.7);color:#a0f0ff;}
+.formula-beused{background:rgba(162,155,254,.18);border:2.5px solid rgba(162,155,254,.7);color:#d8d5ff;}
+.f-arr{font-size:1.4rem;opacity:.85;flex-shrink:0;margin:0 .3rem;}
+.hl{background:rgba(255,255,255,.18);padding:.12rem .6rem;border-radius:7px;font-size:.95rem;}
+
+.examples-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.2rem 0;}
+@media(max-width:600px){.examples-grid{grid-template-columns:1fr;}}
+.ex-card{background:var(--dark2);border-radius:12px;padding:1rem 1.2rem;border-left:4px solid;transition:transform .2s;}
+.ex-card:hover{transform:translateY(-2px);}
+.ex-card-pps{border-color:var(--c0);} .ex-card-ppc{border-color:var(--c1);}
+.ex-card-fs{border-color:var(--c2);} .ex-card-ppsvps{border-color:var(--c3);}
+.ex-card-ppcont{border-color:var(--c4);} .ex-card-usedto{border-color:var(--c5);}
+.ex-card-beused{border-color:var(--c6);}
+.ex-card .eng{font-weight:700;color:var(--text);line-height:1.55;font-size:.93rem;}
+.ex-card .ita{color:var(--subtext);font-size:.82rem;margin-top:.3rem;font-style:italic;}
+
+.info-block{background:var(--dark2);border-radius:12px;padding:1.2rem 1.3rem;margin:.8rem 0;border-left:4px solid rgba(255,255,255,.1);}
+.info-block h4{font-weight:800;margin-bottom:.55rem;font-size:.85rem;letter-spacing:.5px;text-transform:uppercase;}
+.info-block ul{padding-left:1.2rem;color:#adbac7;line-height:1.9;font-size:.91rem;}
+.info-block li{margin-bottom:.12rem;}
+.info-block.warn{border-left-color:var(--c1);}.info-block.warn h4{color:var(--c1);}
+.info-block.tip{border-left-color:var(--c2);}.info-block.tip h4{color:var(--c2);}
+.info-block.danger{border-left-color:var(--c0);}.info-block.danger h4{color:var(--c0);}
+.info-block.blue{border-left-color:var(--c5);}.info-block.blue h4{color:var(--c5);}
+.info-block.purple{border-left-color:var(--c6);}.info-block.purple h4{color:var(--c6);}
+.info-block.orange{border-left-color:var(--c4);}.info-block.orange h4{color:var(--c4);}
+
+/* Quick Tip box */
+.qtip{background:rgba(255,195,0,.08);border:1.5px solid rgba(255,195,0,.35);border-radius:12px;padding:1rem 1.3rem;margin:.9rem 0;font-size:.88rem;color:#adbac7;line-height:1.75;}
+.qtip strong{color:var(--c1);}
+
+.t-section-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;margin:1.4rem 0 .6rem;color:var(--subtext);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border);padding-bottom:.45rem;}
+
+/* Grammar for All map style */
+.gfa-box{background:var(--dark2);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin:1rem 0;}
+.gfa-box h4{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.85rem;color:var(--subtext);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.8rem;}
+
+.compare-table{width:100%;border-collapse:collapse;border-radius:14px;overflow:hidden;margin:1.2rem 0;font-size:.86rem;}
+.compare-table th{background:var(--mid);padding:.75rem 1rem;text-align:left;font-family:'Space Grotesk';font-size:.74rem;letter-spacing:1px;text-transform:uppercase;color:var(--subtext);}
+.compare-table td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.55;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.ctype{font-weight:800;padding:.18rem .65rem;border-radius:6px;font-size:.75rem;display:inline-block;}
+.ctype-pps{background:var(--c0);color:var(--dark);} .ctype-ppc{background:var(--c1);color:var(--dark);}
+.ctype-fs{background:var(--c2);color:var(--dark);} .ctype-ppsvps{background:var(--c3);color:white;}
+.ctype-ppcont{background:var(--c4);color:var(--dark);} .ctype-usedto{background:var(--c5);color:var(--dark);}
+.ctype-beused{background:var(--c6);color:white;}
+
+/* EXERCISES */
+.exercise-block{background:var(--dark2);border-radius:16px;padding:1.5rem;margin-bottom:1.4rem;border:1px solid var(--border);position:relative;overflow:hidden;}
+.exercise-block::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.ex-pps::before{background:var(--c0);} .ex-ppc::before{background:var(--c1);}
+.ex-fs::before{background:var(--c2);} .ex-ppsvps::before{background:var(--c3);}
+.ex-ppcont::before{background:var(--c4);} .ex-usedto::before{background:var(--c5);}
+.ex-beused::before{background:var(--c6);}
+.ex-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+.ex-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0;}
+.ex-num-pps{background:var(--c0);color:var(--dark);} .ex-num-ppc{background:var(--c1);color:var(--dark);}
+.ex-num-fs{background:var(--c2);color:var(--dark);} .ex-num-ppsvps{background:var(--c3);color:white;}
+.ex-num-ppcont{background:var(--c4);color:var(--dark);} .ex-num-usedto{background:var(--c5);color:var(--dark);}
+.ex-num-beused{background:var(--c6);color:white;}
+.ex-header h3{font-size:.95rem;font-weight:800;flex:1;}
+.ex-badge{font-size:.66rem;font-weight:700;letter-spacing:1px;padding:.18rem .65rem;border-radius:50px;background:rgba(255,255,255,.06);color:var(--subtext);text-transform:uppercase;white-space:nowrap;}
+.ex-badge-book{font-size:.64rem;font-weight:700;letter-spacing:.5px;padding:.18rem .65rem;border-radius:50px;background:rgba(255,195,0,.12);color:var(--c1);text-transform:uppercase;white-space:nowrap;border:1px solid rgba(255,195,0,.3);}
+.ex-instruction{color:#adbac7;font-size:.86rem;font-style:italic;margin-bottom:1rem;padding:.7rem 1rem;background:rgba(255,255,255,.03);border-radius:8px;}
+.ex-item{display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.95rem;padding-bottom:.95rem;border-bottom:1px solid var(--border);}
+.ex-item:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ex-n{font-weight:900;color:var(--subtext);min-width:22px;padding-top:.1rem;font-size:.82rem;}
+.ex-text{flex:1;line-height:1.85;font-size:.92rem;}
+
+input.fill{background:none;border:none;border-bottom:2px dashed rgba(255,255,255,.25);color:var(--text);font-family:'Nunito',sans-serif;font-size:.91rem;font-weight:700;padding:0 4px 2px;outline:none;min-width:90px;transition:all .2s;cursor:text;}
+input.fill:focus{border-bottom:2px solid var(--c1);}
+input.fill.correct{border-bottom:2px solid var(--c2);color:var(--c2);}
+input.fill.wrong{border-bottom:2px solid var(--c0);color:var(--c0);}
+input.fill.revealed{border-bottom:2px solid var(--c6);color:var(--c6);font-style:italic;}
+
+.btn-row{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.2rem;align-items:center;}
+.check-btn,.show-btn,.reset-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.1rem;border-radius:50px;border:none;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s;}
+.check-btn:hover,.show-btn:hover,.reset-btn:hover{transform:scale(1.04);}
+.check-btn-pps{background:var(--c0);color:var(--dark);} .check-btn-ppc{background:var(--c1);color:var(--dark);}
+.check-btn-fs{background:var(--c2);color:var(--dark);} .check-btn-ppsvps{background:var(--c3);color:white;}
+.check-btn-ppcont{background:var(--c4);color:var(--dark);} .check-btn-usedto{background:var(--c5);color:var(--dark);}
+.check-btn-beused{background:var(--c6);color:white;}
+.show-btn{background:rgba(162,155,254,.18);border:1px solid rgba(162,155,254,.4);color:var(--c6);}
+.reset-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--subtext);}
+.score-badge{display:none;font-weight:800;font-size:.86rem;padding:.3rem .85rem;border-radius:50px;background:rgba(255,255,255,.06);}
+
+/* VIDEOS */
+.videos-grid{display:grid;gap:1.4rem;padding:1.4rem 1rem 3rem;max-width:940px;margin:0 auto;}
+.video-card{background:var(--dark2);border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:transform .2s,box-shadow .2s;}
+.video-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3);}
+.video-embed{width:100%;aspect-ratio:16/9;border:none;}
+.video-info{padding:1rem 1.2rem;}
+.video-info h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.4rem;}
+.video-info p{color:#adbac7;font-size:.84rem;line-height:1.6;}
+.video-tag{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:1px;padding:.18rem .65rem;border-radius:50px;margin-bottom:.45rem;text-transform:uppercase;}
+
+footer{position:relative;z-index:10;background:var(--dark2);border-top:1px solid var(--border);text-align:center;padding:1rem 1.5rem;color:var(--subtext);font-size:.78rem;font-weight:600;line-height:1.8;}
+footer span.accent{color:var(--c1);}
+footer span.dim{color:rgba(139,148,158,.4);margin:0 .4rem;}
+
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-thumb{background:var(--mid);border-radius:3px;}
+@media(max-width:600px){.main-tab{font-size:.78rem;padding:.7rem .85rem;}.t-hero{padding:1.2rem;}.exercise-block{padding:1.1rem;}.examples-grid{grid-template-columns:1fr;}.sub-tab{font-size:.7rem;padding:.32rem .65rem;}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header>
+  <div class="header-badge">📚 IIS Mendel · A.S. 25/26 · Performer B1-B2</div>
+  <div class="header-title">⏳ RIPASSO <span class="h-past">Past</span> <span class="h-perf">Tenses</span></div>
+  <div class="header-sub-title">Prof. Crespi — Inglese</div>
+  <p class="header-sub">Clicca un argomento per saltare direttamente alla teoria</p>
+  <div class="pill-row">
+    <button class="pill pill-0" onclick="jumpTo('tpps')">🔴 Pres. Perf. vs Past Simple</button>
+    <button class="pill pill-1" onclick="jumpTo('tppc')">🟡 Pres. Perf. Continuous</button>
+    <button class="pill pill-2" onclick="jumpTo('tfs')">🟢 For &amp; Since</button>
+    <button class="pill pill-3" onclick="jumpTo('tppsvps')">🔵 Past Perf. vs Past Simple</button>
+    <button class="pill pill-4" onclick="jumpTo('tppcont')">🟠 Past Perf. Continuous</button>
+    <button class="pill pill-5" onclick="jumpTo('tusedto')">🔵 Used to &amp; Would</button>
+    <button class="pill pill-6" onclick="jumpTo('tbeused')">🟣 Be / Get Used to</button>
+  </div>
+</header>
+
+<nav class="main-tabs" id="mainTabs">
+  <button class="main-tab active" onclick="showMain('teoria',this)">📖 TEORIA</button>
+  <button class="main-tab" onclick="showMain('esercizi',this)">✏️ ESERCIZI</button>
+  <button class="main-tab" onclick="showMain('videos',this)">🎬 VIDEOS</button>
+</nav>
+
+<!-- ══════════ TEORIA ══════════ -->
+<div id="teoria" class="section-wrap active">
+  <div class="sub-tabs">
+    <button class="sub-tab active" data-t="pps"      onclick="showSub('teoria','tpps',this)">Pres. Perf. Simple</button>
+    <button class="sub-tab"        data-t="ppc"      onclick="showSub('teoria','tppc',this)">Pres. Perf. Cont.</button>
+    <button class="sub-tab"        data-t="forsince"  onclick="showSub('teoria','tfs',this)">For &amp; Since</button>
+    <button class="sub-tab"        data-t="ppsvps"   onclick="showSub('teoria','tppsvps',this)">Past Perf. vs Past</button>
+    <button class="sub-tab"        data-t="ppcont"   onclick="showSub('teoria','tppcont',this)">Past Perf. Cont.</button>
+    <button class="sub-tab"        data-t="usedto"   onclick="showSub('teoria','tusedto',this)">Used to &amp; Would</button>
+    <button class="sub-tab"        data-t="beused"   onclick="showSub('teoria','tbeused',this)">Be/Get Used to</button>
+  </div>
+
+  <!-- ── 1. PRESENT PERFECT SIMPLE vs PAST SIMPLE ── -->
+  <div id="tpps" class="content-panel active">
+    <div class="t-hero t-hero-pps">
+      <span class="emoji-big">🔴</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 34 · pp. 127–128</span>
+      <h2 style="color:var(--c0)">Present Perfect Simple vs Past Simple</h2>
+      <p>Due tempi che descrivono entrambi il passato, ma con prospettive diverse. Il Present Perfect collega il passato al <strong>presente</strong>; il Past Simple descrive eventi conclusi in un momento preciso del passato, <strong>senza legame col presente</strong>.</p>
+    </div>
+
+    <p class="t-section-title">📌 Present Perfect — quando si usa (pp. 127)</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Il PRESENT PERFECT si usa per...</th><th>Esempio dal libro</th></tr></thead>
+        <tbody>
+          <tr><td>eventi conclusi con <strong>conseguenze visibili nel presente</strong></td><td><em>I've lost my keys, I can't open the door.</em></td></tr>
+          <tr><td>eventi in un <strong>passato indefinito</strong> (esperienze di vita)</td><td><em>I've never liked modern art, but this is rather good!</em></td></tr>
+          <tr><td>eventi in un periodo di tempo <strong>non ancora concluso</strong> (today, this week, so far)</td><td><em>Hannah hasn't gone to school today.</em> (è ancora oggi)</td></tr>
+          <tr><td>azioni o stati che <strong>continuano nel presente</strong> (con for/since)</td><td><em>I've worked in this school for fifteen years.</em></td></tr>
+          <tr><td>domande con <strong>How long…?</strong> (azione continua)</td><td><em>How long have you lived in this area?</em></td></tr>
+          <tr><td><strong>prime notizie</strong> accompagnate da <em>just</em></td><td><em>I've (just) bought a new smartphone, look!</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="t-section-title">📌 Past Simple — quando si usa (pp. 127)</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Il PAST SIMPLE si usa per...</th><th>Esempio dal libro</th></tr></thead>
+        <tbody>
+          <tr><td>eventi in un momento preciso con <strong>date/espressioni temporali</strong> (yesterday, last week, ago, in 2010)</td><td><em>We moved house two years ago.</em></td></tr>
+          <tr><td><strong>serie di eventi</strong> al passato</td><td><em>She checked out of the hotel, called a taxi and went to the airport.</em></td></tr>
+          <tr><td>con <em>this morning / this afternoon</em> quando quella parte della <strong>giornata è già conclusa</strong></td><td><em>Did Hannah go to school this morning?</em> (non è più mattina)</td></tr>
+          <tr><td>dare <strong>informazioni dettagliate</strong> su esperienze passate</td><td><em>The first time I went skiing was in 2008 on a school trip and I hated it.</em></td></tr>
+          <tr><td>domande con <strong>What time…? / When…?</strong></td><td><em>When did you first meet Emily?</em></td></tr>
+          <tr><td>per <strong>spiegare i dettagli</strong> di una notizia annunciata col Present Perfect</td><td><em>I've just bought a new smartphone! My parents gave me some money for my birthday.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-block warn">
+      <h4>⚠️ Errori comuni</h4>
+      <ul>
+        <li>❌ <em>I have seen her yesterday.</em> → ✅ <em>I saw her yesterday.</em> (yesterday → Past Simple)</li>
+        <li>❌ <em>He has worked there in 2015.</em> → ✅ <em>He worked there in 2015.</em></li>
+        <li>❌ <em>Did you ever visit Japan?</em> → ✅ <em>Have you ever visited Japan?</em></li>
+        <li>⚠️ Con <em>for</em> al Past Simple: <em>I worked in that factory <strong>for</strong> fifteen years.</em> (durata conclusa, usa for ma non since)</li>
+      </ul>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Segnale temporale</th><th>Tempo</th><th>Esempio</th></tr></thead>
+        <tbody>
+          <tr><td>just, already, yet, ever, never, recently, so far, lately</td><td><span class="ctype ctype-pps">Pres. Perf.</span></td><td><em>Have you eaten yet?</em></td></tr>
+          <tr><td>yesterday, last night, in 2010, ago, at 3pm, in the summer of…</td><td><span class="ctype ctype-ppsvps">Past Simple</span></td><td><em>I called her an hour ago.</em></td></tr>
+          <tr><td>today / this morning (ancora in corso)</td><td><span class="ctype ctype-pps">Pres. Perf.</span></td><td><em>I haven't eaten today.</em></td></tr>
+          <tr><td>today / this morning (giorno concluso)</td><td><span class="ctype ctype-ppsvps">Past Simple</span></td><td><em>I woke up at 7 this morning.</em></td></tr>
+          <tr><td>for + periodo (azione conclusa)</td><td><span class="ctype ctype-ppsvps">Past Simple</span></td><td><em>I worked there for fifteen years.</em></td></tr>
+          <tr><td>for + periodo (azione ancora in corso)</td><td><span class="ctype ctype-pps">Pres. Perf.</span></td><td><em>I've worked here for fifteen years.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 2. PRESENT PERFECT CONTINUOUS ── -->
+  <div id="tppc" class="content-panel">
+    <div class="t-hero t-hero-ppc">
+      <span class="emoji-big">🟡</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 35 · pp. 132–133 + Unit 41 · pp. 147–148</span>
+      <h2 style="color:var(--c1)">Present Perfect Continuous &amp; Duration Form</h2>
+      <p>Si forma con <strong>have/has been + -ing</strong>. Sottolinea la <strong>durata</strong> o la <strong>continuità</strong> di un'azione iniziata nel passato, oppure spiega una situazione attuale con un'azione appena terminata.</p>
+    </div>
+
+    <div class="formula-box formula-ppc">
+      <span><span class="hl">have / has been</span> + verb<span class="hl">-ing</span></span>
+    </div>
+
+    <p class="t-section-title">📌 Usi (Unit 35, p. 132)</p>
+    <div class="info-block warn">
+      <h4>⏱ 1. Azione iniziata nel passato con risultato nel presente</h4>
+      <ul>
+        <li><em>'You look really tired.' 'I've been studying hard all day.'</em></li>
+        <li><em>'What's that awful smell?' 'I've been cooking something.'</em></li>
+      </ul>
+    </div>
+    <div class="info-block tip">
+      <h4>🔬 2. Situazioni temporanee iniziate nel passato e continue nel presente</h4>
+      <ul>
+        <li><em>Scientists have been conducting research on cancer for the past forty years.</em></li>
+      </ul>
+    </div>
+    <div class="info-block blue">
+      <h4>🔁 3. Azioni ripetute dal passato al presente</h4>
+      <ul>
+        <li><em>I've been coughing for weeks, but I can't find a cure.</em></li>
+      </ul>
+    </div>
+    <div class="info-block orange">
+      <h4>📏 4. Con for, since, all day/morning — durata e continuità</h4>
+      <ul>
+        <li><em>I've been looking for you since this morning.</em></li>
+        <li><em>I've been looking for you for hours.</em></li>
+        <li><em>It's been snowing all day.</em></li>
+      </ul>
+    </div>
+
+    <p class="t-section-title">📋 Present Perfect Simple vs Continuous (Unit 41, p. 147)</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Present Perfect SIMPLE</th><th>Present Perfect CONTINUOUS</th></tr></thead>
+        <tbody>
+          <tr><td>Attenzione al <strong>risultato</strong><br><em>I've read three chapters</em> (quanti? → risultato)</td><td>Attenzione all'<strong>azione stessa</strong><br><em>I've been reading this book for hours</em> (durata)</td></tr>
+          <tr><td>Con <strong>How much / many / often</strong> (quantità)<br><em>How many chapters have you read?</em></td><td>Con <strong>How long / for / since</strong> (durata)<br><em>How long have you been reading?</em></td></tr>
+          <tr><td>Con <strong>verbi di stato</strong> (know, like, be, have, understand…)<br><em>How long have you known Francine?</em></td><td>❌ NON si usa con verbi di stato<br><em>NON: How long have you been knowing…?</em></td></tr>
+          <tr><td>Verbi: begin, break, finish, start, stop<br><em>Have you started the book?</em></td><td>NON si usa con questi verbi al continuous</td></tr>
+          <tr><td>Con <strong>have</strong> come verbo di azione (mangiare, bere…)<br><em>I've had a great holiday.</em></td><td>Può usarsi anche col present perfect continuous<br><em>I've been having guitar lessons lately.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="qtip"><strong>🔔 Quick Tip (Unit 41):</strong> Non si usa il present perfect continuous con i verbi di stato come <em>be, have, stop e break</em>. Con questi verbi si usa sempre il present perfect simple: <em>NON: How long have you been forgetting my homework… → How long have you been knowing…</em></div>
+  </div>
+
+  <!-- ── 3. FOR AND SINCE ── -->
+  <div id="tfs" class="content-panel">
+    <div class="t-hero t-hero-fs">
+      <span class="emoji-big">🟢</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 40 · p. 146</span>
+      <h2 style="color:var(--c2)">For and Since · It's (been) a long time since…</h2>
+      <p><strong>For</strong> = periodo di tempo (quanta durata). <strong>Since</strong> = punto di partenza (da quando). Entrambi si usano con Present Perfect Simple o Continuous.</p>
+    </div>
+
+    <div class="formula-box formula-fs">
+      <span><span class="hl">FOR</span> + period of time</span>
+      <span class="f-arr">↔</span>
+      <span><span class="hl">SINCE</span> + point in time / clause</span>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>FOR (quanto tempo?)</th><th>SINCE (da quando?)</th></tr></thead>
+        <tbody>
+          <tr><td>for two hours</td><td>since 2 o'clock</td></tr>
+          <tr><td>for three days</td><td>since Monday</td></tr>
+          <tr><td>for a week</td><td>since last week</td></tr>
+          <tr><td>for six months</td><td>since June</td></tr>
+          <tr><td>for two years</td><td>since 2022</td></tr>
+          <tr><td>for a long time</td><td>since I was a child</td></tr>
+          <tr><td>for ages</td><td>since she left</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="t-section-title">📌 It's (been) a long time since… (Unit 40, p. 146)</p>
+    <div class="info-block tip">
+      <h4>💡 Struttura speciale: "è da tanto (tempo) che non…"</h4>
+      <ul>
+        <li><em>It's (been) a long time since I had a holiday.</em> → È da una vita che non vado in vacanza.</li>
+        <li><em>It's been ages since I had a holiday.</em> → Espressione colloquiale equivalente.</li>
+        <li>Invece di <em>a long time</em>, si può usare l'espressione colloquiale <em>ages</em>.</li>
+        <li>La domanda si forma con <em>How long has it been since…?</em></li>
+        <li>Si può usare anche il <strong>present simple</strong>: <em>It's a long time since I had a holiday.</em></li>
+        <li>⚠️ Nota la differenza: <em>since</em> nella main clause → NON that!</li>
+      </ul>
+    </div>
+
+    <div class="examples-grid">
+      <div class="ex-card ex-card-fs"><div class="eng">I've lived in Milan <strong>for</strong> ten years.</div><div class="ita">Vivo a Milano da dieci anni. (FOR + periodo)</div></div>
+      <div class="ex-card ex-card-fs"><div class="eng">I've lived in Milan <strong>since</strong> 2014.</div><div class="ita">Vivo a Milano dal 2014. (SINCE + punto)</div></div>
+      <div class="ex-card ex-card-fs"><div class="eng">I haven't seen her <strong>since</strong> she left.</div><div class="ita">Non la vedo da quando se n'è andata.</div></div>
+      <div class="ex-card ex-card-fs"><div class="eng">It's a long time <strong>since</strong> I last went on holiday.</div><div class="ita">È da molto tempo che non vado in vacanza.</div></div>
+    </div>
+
+    <div class="info-block warn">
+      <h4>⚠️ Attenzione!</h4>
+      <ul>
+        <li>❌ <em>I know him since ten years.</em> → ✅ <em>I have known him for ten years.</em></li>
+        <li>❌ <em>She is here since Monday.</em> → ✅ <em>She has been here since Monday.</em></li>
+        <li>Al Past Simple: si usa <em>for</em> oppure <em>from…to</em>, mai <em>since</em>: <em>I worked there from 1999 to 2014.</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 4. PAST PERFECT vs PAST SIMPLE ── -->
+  <div id="tppsvps" class="content-panel">
+    <div class="t-hero t-hero-ppsvps">
+      <span class="emoji-big">🔵</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 37 · p. 139</span>
+      <h2 style="color:#7b9fff">Past Perfect Simple vs Past Simple</h2>
+      <p>Quando due azioni sono avvenute nel passato, quella <strong>più vecchia</strong> va al Past Perfect (<em>had + pp</em>), quella più recente al Past Simple. È il "trapassato prossimo" dell'inglese.</p>
+    </div>
+
+    <div class="formula-box formula-ppsvps">
+      <span><span class="hl">Past Perfect</span>: had + past participle</span>
+      <span class="f-arr">→</span>
+      <span><span class="hl">Past Simple</span>: verb-ed / irregular</span>
+    </div>
+
+    <div class="info-block blue">
+      <h4>📖 Dal libro (p. 139) — Regola fondamentale</h4>
+      <ul>
+        <li><em>The bank closed at 3.30. Elsie arrived at the bank.</em></li>
+        <li>La prima azione (<em>bank closed</em>) precede la seconda (<em>Elsie arrived</em>).</li>
+        <li>→ <em>When Elsie arrived at the bank, it <strong>had already closed</strong>.</em></li>
+        <li>Oppure: <em>The bank <strong>had already closed</strong> when Elsie arrived.</em></li>
+      </ul>
+    </div>
+
+    <div class="examples-grid">
+      <div class="ex-card ex-card-ppsvps"><div class="eng">When I <strong>arrived</strong>, the film <strong>had already started</strong>.</div><div class="ita">Quando arrivai, il film era già iniziato.</div></div>
+      <div class="ex-card ex-card-ppsvps"><div class="eng">I <strong>never ate</strong> Japanese food before we <strong>had it</strong> last night.</div><div class="ita">Non avevo mai mangiato cibo giapponese prima di ieri sera.</div></div>
+      <div class="ex-card ex-card-ppsvps"><div class="eng"><strong>Had</strong> you studied Russian before you <strong>moved</strong> there?</div><div class="ita">Avevi studiato il russo prima di trasferirti lì?</div></div>
+      <div class="ex-card ex-card-ppsvps"><div class="eng">Our neighbours <strong>had lived</strong> in that house for 40 years before they <strong>moved</strong>.</div><div class="ita">I nostri vicini vivevano in quella casa da 40 anni prima di spostarsi.</div></div>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Azione 1 — prima (Past Perfect)</th><th>Azione 2 — dopo (Past Simple)</th></tr></thead>
+        <tbody>
+          <tr><td>The plane <strong>had run out</strong> of fuel</td><td>it crashed</td></tr>
+          <tr><td>She <strong>had failed</strong> her driving test 4 times</td><td>she was upset</td></tr>
+          <tr><td>After Marianne <strong>had done</strong> work experience</td><td>she wanted to apply for a full-time job</td></tr>
+          <tr><td>We <strong>had had</strong> this car since we were married</td><td>we decided to change</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 5. PAST PERFECT CONTINUOUS ── -->
+  <div id="tppcont" class="content-panel">
+    <div class="t-hero t-hero-ppcont">
+      <span class="emoji-big">🟠</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 42 · p. 151 + Unit 43 · pp. 152–153</span>
+      <h2 style="color:var(--c4)">Past Perfect Continuous</h2>
+      <p>Si forma con <strong>had been + -ing</strong>. Descrive un'azione in corso per un certo periodo <strong>prima di un momento o evento nel passato</strong>. Enfatizza la durata o la causa di qualcosa nel passato.</p>
+    </div>
+
+    <div class="formula-box formula-ppcont">
+      <span><span class="hl">had been</span> + verb<span class="hl">-ing</span></span>
+    </div>
+
+    <p class="t-section-title">📌 Usi (Unit 42, p. 151)</p>
+    <div class="info-block orange">
+      <h4>⏳ 1. Durata di un'azione prima di un momento nel passato</h4>
+      <ul>
+        <li><em>I <strong>had been studying</strong> history for a year. Then in 2004 I decided to change to economics.</em></li>
+        <li><em>We <strong>had been waiting</strong> for the bus for a long time when we decided to call a taxi.</em></li>
+      </ul>
+    </div>
+    <div class="info-block tip">
+      <h4>💡 2. Azione in corso che ha causato una situazione nel passato</h4>
+      <ul>
+        <li><em>She wasn't tired because she <strong>had been sleeping</strong> all afternoon.</em></li>
+        <li><em>I <strong>hadn't been paying</strong> attention in class so I didn't know what to do.</em></li>
+      </ul>
+    </div>
+
+    <p class="t-section-title">📋 Past Perfect Simple vs Continuous (Unit 43, p. 152–153)</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Past Perfect SIMPLE</th><th>Past Perfect CONTINUOUS</th></tr></thead>
+        <tbody>
+          <tr><td>Azioni finite in un momento nel passato<br><em>Jack <strong>had finished</strong> his homework by lunchtime so he went out.</em></td><td>Durata di un'azione prima di un momento nel passato<br><em>How long <strong>had you been working</strong> together?</em></td></tr>
+          <tr><td>Verbi di stato (be, know, like…)<br><em>Jack <strong>had known</strong> Anna a long time when he decided to propose.</em></td><td>NON si usa con verbi di stato</td></tr>
+          <tr><td>Verbi: begin, break, finish, start, stop<br><em>Before I met Richard, I <strong>had never wanted</strong> to marry.</em></td><td>Con verbi di azione che esprimono durata<br><em>Da quanto tempo lavoravate insieme?</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="examples-grid">
+      <div class="ex-card ex-card-ppcont"><div class="eng">She was exhausted. She <strong>had been working</strong> all day.</div><div class="ita">Era esausta. Aveva lavorato tutto il giorno.</div></div>
+      <div class="ex-card ex-card-ppcont"><div class="eng">Her eyes were red because she <strong>had been crying</strong>.</div><div class="ita">I suoi occhi erano rossi perché aveva pianto a lungo.</div></div>
+      <div class="ex-card ex-card-ppcont"><div class="eng">The ground was wet. It <strong>had been raining</strong>.</div><div class="ita">Il terreno era bagnato. Aveva piovuto.</div></div>
+      <div class="ex-card ex-card-ppcont"><div class="eng">We <strong>had been working</strong> together since we left school.</div><div class="ita">Lavoravamo insieme da quando avevamo finito la scuola.</div></div>
+    </div>
+  </div>
+
+  <!-- ── 6. USED TO AND WOULD ── -->
+  <div id="tusedto" class="content-panel">
+    <div class="t-hero t-hero-usedto">
+      <span class="emoji-big">🔵</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 38 · p. 143</span>
+      <h2 style="color:var(--c5)">Used to and Would</h2>
+      <p>Per esprimere un'<strong>abitudine o condizione duratura nel passato</strong> si può usare: il Past Simple (con espressione di frequenza), <em>used to + infinito</em>, oppure <em>would + infinito</em>. Ognuno ha però regole precise.</p>
+    </div>
+
+    <div class="formula-box formula-usedto">
+      <span><span class="hl">used to</span> + base infinitive</span>
+      <span class="f-arr">↔</span>
+      <span><span class="hl">would</span> + base infinitive</span>
+    </div>
+
+    <p class="t-section-title">📌 Dal libro (Unit 38, p. 143)</p>
+    <div class="info-block blue">
+      <h4>✅ Used to — abitudini E stati passati</h4>
+      <ul>
+        <li><em>When we lived in Canada, we <strong>used to go</strong> hiking every weekend.</em></li>
+        <li><em>I <strong>used to be</strong> a good swimmer.</em> (stato — ero un bravo nuotatore)</li>
+        <li><em>Sue <strong>used to have</strong> a house in the country.</em> (stato)</li>
+      </ul>
+    </div>
+    <div class="info-block tip">
+      <h4>✅ Would — solo azioni ripetute (NON stati)</h4>
+      <ul>
+        <li><em>When we lived in Canada, we <strong>would go</strong> hiking every weekend.</em></li>
+        <li>❌ <em>NON: I would be a good swimmer.</em></li>
+        <li>❌ <em>NON: She would have a house in the country.</em></li>
+        <li>❌ NON si usa con: be, have, own, like, love, hate, know, understand</li>
+        <li>✅ <em>MA: Sometimes we used to / would stay there.</em> (verbo di azione → entrambi ok)</li>
+      </ul>
+    </div>
+
+    <div class="qtip"><strong>🔔 Quick Tip (Unit 38):</strong> Quando sei incerto tra <em>used to</em> e <em>would</em>, usa <em>used to</em> perché può accompagnare sia verbi di azione sia verbi di stato. Nella frase negativa usa sempre <em>didn't use to</em>.</div>
+
+    <div class="examples-grid">
+      <div class="ex-card ex-card-usedto"><div class="eng">Mark <strong>used to be</strong> / ❌ <strong>would be</strong> the under-16 athletics champion.</div><div class="ita">Mark era il campione di atletica under-16. (stato → solo used to)</div></div>
+      <div class="ex-card ex-card-usedto"><div class="eng">Our cat always <strong>used to sleep</strong> / <strong>would sleep</strong> at the bottom of my bed.</div><div class="ita">Il nostro gatto dormiva sempre in fondo al mio letto. (abitudine → entrambi ok)</div></div>
+      <div class="ex-card ex-card-usedto"><div class="eng">Neil <strong>used to work</strong> / <strong>would work</strong> for a publishing company.</div><div class="ita">Neil lavorava per una casa editrice. (abitudine → entrambi ok)</div></div>
+      <div class="ex-card ex-card-usedto"><div class="eng">Sophie <strong>didn't use to like</strong> / ❌ <strong>wouldn't like</strong> spicy food.</div><div class="ita">A Sophie non piaceva il cibo piccante. (stato → solo used to)</div></div>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th></th><th>Used to ✅</th><th>Would ✅/❌</th></tr></thead>
+        <tbody>
+          <tr><td>Abitudini ripetute</td><td>✅ <em>I used to jog</em></td><td>✅ <em>I would jog</em></td></tr>
+          <tr><td>Stati (be, have, know, like, love…)</td><td>✅ <em>I used to be shy</em></td><td>❌ <em>I would be shy</em></td></tr>
+          <tr><td>Situazioni passate (There used to be…)</td><td>✅ <em>There used to be a farm</em></td><td>❌ <em>There would be a farm</em></td></tr>
+          <tr><td>Negativo</td><td>✅ <em>didn't use to</em></td><td>✅ <em>wouldn't</em></td></tr>
+          <tr><td>Interrogativo</td><td>✅ <em>Did you use to…?</em></td><td>✅ <em>Would you…?</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 7. BE USED TO / GET USED TO ── -->
+  <div id="tbeused" class="content-panel">
+    <div class="t-hero t-hero-beused">
+      <span class="emoji-big">🟣</span>
+      <span class="book-ref">📖 Performer B1-B2 · Unit 39 · p. 145</span>
+      <h2 style="color:var(--c6)">Be used to and Get used to</h2>
+      <p>Significato completamente diverso da <em>used to</em>! Queste espressioni non parlano del passato, ma di <strong>abitudine/familiarità presente</strong> o del <strong>processo di adattarsi</strong>. Seguono sempre da <strong>noun</strong> o <strong>verb-ing</strong>.</p>
+    </div>
+
+    <div class="formula-box formula-beused">
+      <span><span class="hl">be used to</span> + noun / verb-ing</span>
+      <span class="f-arr">↔</span>
+      <span><span class="hl">get used to</span> + noun / verb-ing</span>
+    </div>
+
+    <div class="info-block purple">
+      <h4>📖 Dal libro (Unit 39, p. 145)</h4>
+      <ul>
+        <li><strong>be used to + -ing</strong> = "essere abituato a fare qualcosa" (stato)<br>
+          <em>I'm used to wearing contact lenses.</em> → Sono abituato a portare le lenti a contatto.</li>
+        <li><strong>get used to + -ing</strong> = "abituarsi a…" (processo di adattamento)<br>
+          <em>I'm getting used to using public transport.</em> → Mi sto abituando a usare i mezzi pubblici.</li>
+        <li><em>Now that I've sold my car, I'm getting used to using public transport.</em></li>
+        <li><em>Tom used to be annoyed by cooking and ironing because he lives on his own.</em></li>
+        <li><em>Tom è abituato a cucinare e stirare perché vive da solo.</em></li>
+      </ul>
+    </div>
+
+    <p class="t-section-title">📋 Be/get used to si coniuga in tutti i tempi verbali</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Tempo</th><th>Esempio dal libro</th><th>Traduzione</th></tr></thead>
+        <tbody>
+          <tr><td>Present continuous</td><td><em>I'm getting used to living alone.</em></td><td>Mi sto abituando a vivere da solo.</td></tr>
+          <tr><td>Present perfect</td><td><em>I've got used to living alone.</em></td><td>Mi sono abituato a vivere da solo.</td></tr>
+          <tr><td>Past simple</td><td><em>I got used to living alone.</em></td><td>Mi sono abituato a vivere da solo.</td></tr>
+          <tr><td>Futuro con will</td><td><em>I'll get used to living alone.</em></td><td>Mi abituerò a vivere da solo.</td></tr>
+          <tr><td>Going to</td><td><em>I'm going to get used to living alone.</em></td><td>Mi abituerò a vivere da solo.</td></tr>
+          <tr><td>Condizionale</td><td><em>I could get used to living alone.</em></td><td>Potrei abituarmi a vivere da solo.</td></tr>
+          <tr><td>Modali</td><td><em>I must/should get used to living alone.</em></td><td>Devo/dovrei abituarmi a vivere da solo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="qtip"><strong>🔔 Quick Tip (Unit 39):</strong> Non confondere <em>be/get used to + -ing</em> con <em>used to + infinito</em>!<br>
+    <em>When I was at school, I <strong>used to do</strong> my homework with my friends.</em> (abitudine passata)<br>
+    <em>When I was at school, I <strong>was used to having</strong> long summer holidays.</em> (ero già abituato)
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>Espressione</th><th>Significato</th><th>Struttura</th><th>Esempio</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ctype ctype-usedto">used to</span></td><td>Abitudine passata (non più)</td><td>+ infinito (to play)</td><td><em>I used to play tennis.</em></td></tr>
+          <tr><td><span class="ctype ctype-beused">be used to</span></td><td>Essere abituato (ora)</td><td>+ noun / -ing</td><td><em>I am used to playing tennis.</em></td></tr>
+          <tr><td><span class="ctype ctype-beused">get used to</span></td><td>Abituarsi (processo)</td><td>+ noun / -ing</td><td><em>I am getting used to playing tennis.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div><!-- fine teoria -->
+
+<!-- ══════════ ESERCIZI ══════════ -->
+<div id="esercizi" class="section-wrap">
+  <div class="sub-tabs">
+    <button class="sub-tab active" data-t="pps"      onclick="showSub('esercizi','epps',this)">Pres. Perf. Simple</button>
+    <button class="sub-tab"        data-t="ppc"      onclick="showSub('esercizi','eppc',this)">Pres. Perf. Cont.</button>
+    <button class="sub-tab"        data-t="forsince"  onclick="showSub('esercizi','efs',this)">For &amp; Since</button>
+    <button class="sub-tab"        data-t="ppsvps"   onclick="showSub('esercizi','eppsvps',this)">Past Perf. vs Past</button>
+    <button class="sub-tab"        data-t="ppcont"   onclick="showSub('esercizi','eppcont',this)">Past Perf. Cont.</button>
+    <button class="sub-tab"        data-t="usedto"   onclick="showSub('esercizi','eusedto',this)">Used to &amp; Would</button>
+    <button class="sub-tab"        data-t="beused"   onclick="showSub('esercizi','ebeused',this)">Be/Get Used to</button>
+  </div>
+
+  <!-- ═ E1: PRES PERF vs PAST SIMPLE ═ -->
+  <div id="epps" class="content-panel active">
+
+    <div class="exercise-block ex-pps">
+      <div class="ex-header"><div class="ex-num ex-num-pps">1</div><h3>Scegli l'opzione corretta</h3><span class="ex-badge-book">📖 Unit 34 · Ex. 1</span></div>
+      <p class="ex-instruction">Scegli il verbo corretto tra le due opzioni. Scrivi la forma scelta nello spazio.</p>
+      <div class="ex-item"><span class="ex-n">▶</span><span class="ex-text">Can I have another cup of coffee? I've drunk / drank this cup. → <input class="fill" data-ans="'ve drunk" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">Hang on a minute. I didn't finish / haven't finished this exercise. → <input class="fill" data-ans="haven't finished" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">I can't find my wallet. I think I've lost / lost it. → <input class="fill" data-ans="'ve lost" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">Did you go / Have you been to the cinema last night? → <input class="fill" data-ans="Did you go" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">Barbara left / has left at 10.30. → <input class="fill" data-ans="left" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text">Hurry up, Jack! You didn't start / haven't started yet. → <input class="fill" data-ans="haven't started" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">6.</span><span class="ex-text">Did you hear / Have you heard that new Lady Gaga track? → <input class="fill" data-ans="Have you heard" placeholder="………"></span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-pps" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+
+    <div class="exercise-block ex-pps">
+      <div class="ex-header"><div class="ex-num ex-num-pps">2</div><h3>Completa con l'espressione di tempo adeguata</h3><span class="ex-badge-book">📖 Unit 34 · Ex. 5</span></div>
+      <p class="ex-instruction">Scegli tra: again | for the last time | how long | lately | this is the first time | when she was a child | yesterday</p>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">I can't believe I've failed my driving test <input class="fill" data-ans="again" placeholder="………">!</span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text"><input class="fill" data-ans="When she was a child" placeholder="………">, the writer Margaret Atwood lived in an isolated part of Canada.</span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text"><input class="fill" data-ans="How long" placeholder="………"> have you been here?</span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">When did you see the suspect <input class="fill" data-ans="for the last time" placeholder="………">?</span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text"><input class="fill" data-ans="This is the first time" placeholder="………"> I've tasted Ethiopian food.</span></div>
+      <div class="ex-item"><span class="ex-n">6.</span><span class="ex-text">Have you spoken to your son's teachers <input class="fill" data-ans="lately" placeholder="………">?</span></div>
+      <div class="ex-item"><span class="ex-n">7.</span><span class="ex-text">I had a terrible headache <input class="fill" data-ans="yesterday" placeholder="………">.</span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-pps" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+
+    <div class="exercise-block ex-pps">
+      <div class="ex-header"><div class="ex-num ex-num-pps">3</div><h3>Present Perfect o Past Simple? — completamento</h3><span class="ex-badge-book">📖 Unit 34 · Ex. 6</span></div>
+      <p class="ex-instruction">Completa le frasi con il present perfect o il past simple dei verbi tra parentesi.</p>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">So far, I <input class="fill" data-ans="have saved" placeholder="………"> (save) 400 euros for my new computer.</span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">'Last Saturday we <input class="fill" data-ans="went" placeholder="………"> (go) to Pierre's.' '<input class="fill" data-ans="Did" placeholder="………"> Milly and Craig come there as well?' 'No, they <input class="fill" data-ans="didn't come" placeholder="………"> (not come).'</span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">My family <input class="fill" data-ans="has lived" placeholder="………"> (live) in this house for 3 years and we love it.</span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">Last year I <input class="fill" data-ans="spent" placeholder="………"> (spend) six months travelling around Asia.</span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text">When they <input class="fill" data-ans="got married" placeholder="………"> (get married), they really <input class="fill" data-ans="loved" placeholder="………"> (love) each other.</span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-pps" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═ E2: PRES PERF CONTINUOUS ═ -->
+  <div id="eppc" class="content-panel">
+
+    <div class="exercise-block ex-ppc">
+      <div class="ex-header"><div class="ex-num ex-num-ppc">1</div><h3>Completa con il Present Perfect Continuous</h3><span class="ex-badge-book">📖 Unit 35 · Ex. 1</span></div>
+      <p class="ex-instruction">Usa i verbi: bark | go | make | listen | give | look | play | take</p>
+      <div class="ex-item"><span class="ex-n">▶</span><span class="ex-text">That dog <input class="fill" data-ans="has been barking" placeholder="………"> for hours!</span></div>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">Our English teacher <input class="fill" data-ans="has been giving" placeholder="………"> us more and more homework lately.</span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">I <input class="fill" data-ans="have been looking" placeholder="………"> for some change in my purse, but I haven't got any, sorry.</span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">It smells wonderful in here. What <input class="fill" data-ans="have you been making" placeholder="………">?</span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">Don't tell anyone, but Rose <input class="fill" data-ans="has been going" placeholder="………"> out secretly with Carl!</span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text">I <input class="fill" data-ans="have been taking" placeholder="………"> driving lessons for a few months now. My test is next week.</span></div>
+      <div class="ex-item"><span class="ex-n">6.</span><span class="ex-text">Wow, you're really good! How long <input class="fill" data-ans="have you been playing" placeholder="………"> tennis?</span></div>
+      <div class="ex-item"><span class="ex-n">7.</span><span class="ex-text">Could you say all that again? Sorry, I (not) <input class="fill" data-ans="haven't been listening" placeholder="………">.</span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-ppc" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+
+    <div class="exercise-block ex-ppc">
+      <div class="ex-header"><div class="ex-num ex-num-ppc">2</div><h3>Riscrivi con il Present Perfect Continuous</h3><span class="ex-badge-book">📖 Unit 35 · Ex. 5</span></div>
+      <p class="ex-instruction">Come nell'esempio: <em>We moved to this area three months ago and we're still living here → We've been living in this area for three months.</em></p>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">Brad Pitt began his career as an actor in 1989 and he is still acting.<br>
+        <input class="fill" data-ans="Brad Pitt has been acting since 1989." placeholder="Brad Pitt …" style="min-width:340px"></span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">Ruth and Veronica first shared a flat two years ago and are still living together.<br>
+        <input class="fill" data-ans="Ruth and Veronica have been living together for two years." placeholder="Ruth and Veronica …" style="min-width:340px"></span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">Apple started making computers in the 1970s.<br>
+        <input class="fill" data-ans="Apple has been making computers since the 1970s." placeholder="Apple …" style="min-width:340px"></span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">I started saving money when I got this job.<br>
+        <input class="fill" data-ans="I have been saving money since I got this job." placeholder="I …" style="min-width:340px"></span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-ppc" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+
+    <div class="exercise-block ex-ppc">
+      <div class="ex-header"><div class="ex-num ex-num-ppc">3</div><h3>Pres. Perf. Simple o Continuous?</h3><span class="ex-badge-book">📖 Unit 41 · Ex. 4</span></div>
+      <p class="ex-instruction">Dove è necessario, sostituisci il present perfect con il present perfect continuous.</p>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">I've stopped / <input class="fill" data-ans="have been stopping" placeholder="………"> has been stopping on the motorway. → <strong>has been stopping</strong> ✓</span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">Have you waited / <input class="fill" data-ans="Have you been waiting" placeholder="………"> there for long?</span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">Have you checked / <input class="fill" data-ans="Have you been checking" placeholder="………"> you have enough water recently?</span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">Has this happened / <input class="fill" data-ans="Has this been happening" placeholder="………"> before? (X = non si cambia)</span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text">Have you put / <input class="fill" data-ans="Have you been putting" placeholder="………"> any petrol in recently?</span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-ppc" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═ E3: FOR AND SINCE ═ -->
+  <div id="efs" class="content-panel">
+
+    <div class="exercise-block ex-fs">
+      <div class="ex-header"><div class="ex-num ex-num-fs">1</div><h3>For o Since? — completamento</h3><span class="ex-badge">Fill in</span></div>
+      <p class="ex-instruction">Inserisci <strong>for</strong> o <strong>since</strong> nella posizione corretta.</p>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">I have lived in Milan <input class="fill" data-ans="for" placeholder="……"> ten years.</span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">She has been waiting <input class="fill" data-ans="since" placeholder="……"> 3 o'clock.</span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">We haven't spoken <input class="fill" data-ans="for" placeholder="……"> months.</span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">He has known her <input class="fill" data-ans="since" placeholder="……"> they were children.</span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text">I have been studying English <input class="fill" data-ans="since" placeholder="……"> I was twelve.</span></div>
+      <div class="ex-item"><span class="ex-n">6.</span><span class="ex-text">They haven't been on holiday <input class="fill" data-ans="for" placeholder="……"> ages.</span></div>
+      <div class="ex-item"><span class="ex-n">7.</span><span class="ex-text">She has been working here <input class="fill" data-ans="since" placeholder="……"> January.</span></div>
+      <div class="ex-item"><span class="ex-n">8.</span><span class="ex-text">I've had this bike <input class="fill" data-ans="for" placeholder="……"> two years.</span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-fs" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+
+    <div class="exercise-block ex-fs">
+      <div class="ex-header"><div class="ex-num ex-num-fs">2</div><h3>It's (been) a long time since…</h3><span class="ex-badge-book">📖 Unit 40 · Ex. 2</span></div>
+      <p class="ex-instruction">Completa le frasi conservando il senso della prima frase. Esempio: <em>I haven't heard from Evie for weeks → It's weeks since I heard from Evie.</em></p>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">It's a long time since I <input class="fill" data-ans="bought" placeholder="………"> any new clothes.</span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">It's two years since Robert <input class="fill" data-ans="joined" placeholder="………"> this company.</span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">It's a long time since I <input class="fill" data-ans="had" placeholder="………"> such a good meal.</span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">It's a long time since I last <input class="fill" data-ans="saw" placeholder="………"> Nina and Tom.</span></div>
+      <div class="btn-row">
+        <button class="check-btn check-btn-fs" onclick="checkEx(this)">✅ Check</button>
+        <button class="show-btn" onclick="showAnswers(this)">👁 Show Answers</button>
+        <button class="reset-btn" onclick="resetEx(this)">🔄 Reset</button>
+        <span class="score-badge"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═ E4: PAST PERFECT vs PAST SIMPLE ═ -->
+  <div id="eppsvps" class="content-panel">
+
+    <div class="exercise-block ex-ppsvps">
+      <div class="ex-header"><div class="ex-num ex-num-ppsvps">1</div><h3>Scegli l'opzione corretta</h3><span class="ex-badge-book">📖 Unit 37 · Ex. 1</span></div>
+      <p class="ex-instruction">Scegli la forma corretta tra le due opzioni.</p>
+      <div class="ex-item"><span class="ex-n">▶</span><span class="ex-text">The plane crashed because it ran out / <strong>had run out</strong> of fuel. → <input class="fill" data-ans="had run out" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">1.</span><span class="ex-text">Fiona was upset because she failed / had failed her driving test for the fifth time. → <input class="fill" data-ans="had failed" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">2.</span><span class="ex-text">I never ate / had never eaten Japanese food before we had it last night. → <input class="fill" data-ans="had never eaten" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">3.</span><span class="ex-text">Had you studied Russian before you had moved / moved there? → <input class="fill" data-ans="moved" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">4.</span><span class="ex-text">Our neighbours lived / had lived in that house for 40 years before they moved. → <input class="fill" data-ans="had lived" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">5.</span><span class="ex-text">After Marianne had done some work experience there, she wanted / had wanted to apply. → <input class="fill" data-ans="wanted" placeholder="………"></span></div>
+      <div class="ex-item"><span class="ex-n">6.</span><span class="ex-text">We couldn't get tickets because they sold / had sold out in the first hour. → <input class="fill" data-ans="had sold" placeholder="………"></span></div>
+      <div class="btn-row">
+        <b
